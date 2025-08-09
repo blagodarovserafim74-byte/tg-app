@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: #ff2d55;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello, <span id="user-name">User</span>!</h1>
+    <button onclick="sendData()">SEND HELLO TO BOT</button>
+
+    <script>
+        // Инициализация Telegram Web App
+        const tg = window.Telegram.WebApp;
+        
+        // Показываем основную кнопку интерфейса
+        tg.MainButton.text = "CLOSE APP";
+        tg.MainButton.show();
+        tg.MainButton.onClick(() => tg.close());
+        
+        // Получаем данные пользователя
+        document.getElementById('user-name').textContent = 
+            tg.initDataUnsafe.user?.first_name || 'User';
+        
+        // Функция отправки данных в бота
+        function sendData() {
+            tg.sendData(JSON.stringify({
+                action: "hello",
+                message: "Hello from Mini App!"
+            }));
+        }
+    </script>
+</body>
+</html>
