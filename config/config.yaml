@@ -1,0 +1,74 @@
+logging:
+  level: INFO
+api_keys:
+  openai_api_key: ''
+  gemini_api_key: ''
+  github_token: ''
+model:
+  mode: local
+  local_model_path: C:/Users/user/Documents/ai_agent_programmer_ollama_fixed/models/base/Qwen2.5-Coder-7B-Instruct
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+
+  device: cuda
+  quantization: 4bit
+  lora_adapters_dir: models/adapters
+  lora_active_adapter: default
+  max_tokens: 2048
+  temperature: 0.2
+gpu:
+  layers: 32
+  batch_size: 2
+  gradient_accumulation_steps: 8
+scheduler:
+  github_sync_interval_sec: 3600
+  retrain_interval_sec: 21600
+  max_iterations: 100000
+security:
+  use_docker: true
+  docker_image: python:3.11-slim
+  timeout_sec: 60
+  memory_limit_mb: 1024
+  cpu_limit: 1.0
+web:
+  host: 127.0.0.1
+  port: 8000
+  enable_webhooks: true
+semantic_search:
+  similarity_threshold: 0.72
+  top_k: 10
+chatgpt_web:
+  session_token: ''
+  session_token_file: ''
+  endpoint: https://chatgpt.com/backend-api/conversation
+  model: auto
+  timeout_sec: 120
+training:
+  auto_loop_enabled: false
+  auto_collect_query: python agent orchestration
+  auto_collect_top_k: 5
+  auto_session_task: Сгенерируй REST endpoint и тесты
+  auto_run_fine_tune: true
+  auto_run_session: true
+  state_dir: memory_db/training
+  checkpoint_interval_sec: 300
+  checkpoint_interval_steps: 200
+  idle_sleep_sec: 30
+  loop_sleep_sec: 5
+  watchdog_backoff_sec: 10
+  dataset_dir: training_data
+  validation_ratio: 0.1
+  max_github_files: 300
+  max_steps: 100
+  learning_rate: 0.0002
+  run_eval_after_train: true
+  pass_k: 1
+  resume_checkpoint_path: ''
+zmq:
+  command_endpoint: tcp://127.0.0.1:5555
+  events_endpoint: tcp://127.0.0.1:5556
+  command_bind: tcp://127.0.0.1:5555
+  events_bind: tcp://127.0.0.1:5556
+  req_timeout_ms: 5000
+
+language: python
+db_url: sqlite:///metrics/metrics.db
